@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    
+    <h1>PARTICIPATING COLLEGES</h1>
+{% if 'onlineapp.add_college' in user_permission %}
+<button type="button" class="btn btn-outline-primary buttonhead"   type="submit" ><a href="{% url 'add-college'  %}">Add College</a></button>
+{% endif %}
+
+
+
+
+<br><br>
+<table border='1' class="table table-striped">
+   <thead> <tr><th scope="col">CODE</th><th scope="col">NAME</th><th scope="col">LOCATION</th>
+       
+       <th scope="col">CONTACT</th>
+       
+       
+       {% if 'onlineapp.add_college' in user_permission %}
+        <th scope="col"  colspan="2">CHANGE </th> 
+       {% endif %}
+       </tr></thead>
+    {% for p in post %}
+    <tr scope="row">
+        
+        <td><a href="{%  url 'student-detail' pk=p.pk %}"}>{{ p.acronym }}</a>        </td>
+        
+        
+        <td>{{  p.name}}</td>
+    
+        <td>{{  p.location}}</td><td>{{  p.contact}}</td>
+       
+        
+       
+        
+         {% if 'onlineapp.add_college' in user_permission %}
+         <td>
+        <button type="button" class="btn btn-light"><a href="{% url 'college-edit' pk=p.pk %}">Edit</a></button></td><td><button type="button" class="btn btn-light"><a href="{% url 'college-delete' pk=p.pk %}">Delete</a></button></td>
+       {% endif %}
+    </tr>
+    
+    {% endfor %}
+    </table>
+  {% endblock %}
